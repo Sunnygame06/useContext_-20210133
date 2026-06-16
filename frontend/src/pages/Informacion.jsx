@@ -1,7 +1,25 @@
 import React from "react";
 import "../styles/Information.css";
+import { useAuth } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom";
 
-const Information = () => (
+const Information = () => {
+
+  const {logOut} = useAuth();
+  const navigate = useNavigate();
+
+
+  const handleLogin = () => {
+    if (logOut()) {
+        navigate("/")
+    }
+  }
+
+  const handleDashboard = () => {
+    navigate("/dashboard")
+  }
+
+  return (
   <div className="info-container">
     <h1>¿Qué es <code>useContext</code> en React?</h1>
     <p>
@@ -26,10 +44,16 @@ const Information = () => (
       En este ejemplo, <code>useContext(MyContext)</code> devuelve el valor actual del contexto <code>MyContext</code>.
     </p>
 
-    <button>
-      
+    <button onClick={handleLogin}>
+        Cerrar sesion
+    </button>
+
+    <button onClick={handleDashboard}>
+        Dashbooard
     </button>
   </div>
-);
+
+    )
+};
 
 export default Information;
